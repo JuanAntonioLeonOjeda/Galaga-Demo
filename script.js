@@ -45,6 +45,9 @@ window.addEventListener('keydown', function(e) {
     case 'ArrowRight':
       player.direction = 1
       break
+    case ' ':
+      const bullet = new Bullet(player.x + 20, player.y - 10, board, enemies)
+      bullet.insertBullet()
   }
 })
 

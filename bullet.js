@@ -1,6 +1,10 @@
-function Bullet (x, y, board, player, array) {
+function Bullet (x, y, parent, array) {
+  var self = this
   this.x = x
   this.y = y
+  this.height = 10
+  this.width = 10
+  this.speed = 10
   this.sprite = document.createElement('div')
 
   this.insertBullet = function () {
@@ -9,6 +13,39 @@ function Bullet (x, y, board, player, array) {
     this.sprite.style.top = this.y + 'px'
     parent.appendChild(this.sprite)
   }
+
+  this.move = function () {
+    self.checkCollision()
+
+    self.y -= self.speed
+    self.sprite.style.top = self.y + 'px'
+
+    if (self.y === 0) {
+      self.removeBullet()
+    }
+  }
+
+  this.removeBullet = function () {
+    parent.removeChild(this.sprite)
+    clearInterval(this.timerId)
+  }
+
+  this.checkCollision = function () {
+    array.forEach(function(enemy, index){
+      if (
+        self.y + self.height >= enemy.y &&
+        self.y <= enemy.y + enemy.height &&
+        self.x + self.width >= enemy.x &&
+        self.x <= enemy.x + enemy.width
+      ) {
+        self.removeBullet()
+        enemy.removeEnemy()
+        array.splice(index, 1)
+      }
+    })
+  }
+
+  this.timerId = setInterval(this.move, 50)
 }
 
 export { Bullet }

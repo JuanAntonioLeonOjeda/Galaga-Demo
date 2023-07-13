@@ -34,7 +34,9 @@ function Enemy(x,y, parent, player) {
     console.log()
     if (
         this.y + this.height >= player.y &&
-        this.y <= player.y + player.height
+        this.y <= player.y + player.height &&
+        this.x + this.width >= player.x &&
+        this.x <= player.x + player.width
        ) 
     {
       player.isDead = true
