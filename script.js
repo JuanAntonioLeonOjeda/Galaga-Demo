@@ -8,11 +8,14 @@ player.insertPlayer()
 
 function start () {
   const playerTimer = setInterval(player.move, 50)
-  let enemyTimer = setInterval(function(){
-    const enemy = new Enemy(50, 0, board)
-    enemy.insertEnemy()
-  }, 2000)
+  let enemyTimer = setInterval(createEnemy, 2000)
 
+}
+
+function createEnemy () {
+  let randomX = Math.floor(Math.random() * 10) * 50
+  const enemy = new Enemy(randomX, 0, board)
+  enemy.insertEnemy()
 }
 
 
