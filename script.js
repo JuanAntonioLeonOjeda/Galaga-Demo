@@ -1,11 +1,20 @@
 import { Player } from './player.js'
+import { Enemy } from './enemy.js'
 
 const board = document.getElementById('main-board')
 const player = new Player(225, 750, board)
 
 player.insertPlayer()
 
-const timerId = setInterval(player.move, 50)
+function start () {
+  const playerTimer = setInterval(player.move, 50)
+  let enemyTimer = setInterval(function(){
+    const enemy = new Enemy(50, 0, board)
+    enemy.insertEnemy()
+  }, 2000)
+
+}
+
 
 window.addEventListener('keydown', function(e) {
   switch (e.key) {
@@ -23,3 +32,6 @@ window.addEventListener('keyup', function(e) {
     player.direction = 0
   }
 })
+
+
+start()
