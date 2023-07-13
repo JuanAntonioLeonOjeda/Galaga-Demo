@@ -15,6 +15,15 @@ function Enemy(x,y, parent) {
   this.move = function () {
     self.y += self.speed
     self.sprite.style.top = self.y + 'px'
+
+    if (self.y >= 750) {
+      self.removeEnemy()
+    }
+  }
+
+  this.removeEnemy = function(){
+    parent.removeChild(this.sprite)
+    clearInterval(this.timerId)
   }
 
   this.timerId = setInterval(this.move, 100)
