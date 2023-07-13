@@ -1,20 +1,38 @@
 import { Player } from './player.js'
 import { Enemy } from './enemy.js'
+import { Bullet } from './bullet.js'
 
 const board = document.getElementById('main-board')
 const player = new Player(225, 750, board)
+let enemies = []
+let playerTimer
+let enemyTimer
 
 player.insertPlayer()
 
 function start () {
-  const playerTimer = setInterval(player.move, 50)
-  let enemyTimer = setInterval(createEnemy, 2000)
+  playerTimer = setInterval(playerMovement, 50)
+  enemyTimer = setInterval(createEnemy, 2000)
 
+}
+
+function playerMovement () {
+  player.move()
+  if (player.isDead) {
+    alert('Game Over')
+    clearInterval(playerTimer)
+    clearInterval(enemyTimer)
+    // const enemies = document.getElementsByClassName('enemy')
+    // for(let i = 0; i < enemies.length; i++) {
+    //   clearInterval (enemies[i].timerId)
+    // }
+  }
 }
 
 function createEnemy () {
   let randomX = Math.floor(Math.random() * 10) * 50
-  const enemy = new Enemy(randomX, 0, board)
+  const enemy = new Enemy(randomX, 0, board, player)
+  enemies.push(enemy)
   enemy.insertEnemy()
 }
 
